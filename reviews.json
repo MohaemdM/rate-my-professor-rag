@@ -1,0 +1,124 @@
+{
+    "reviews": [
+    {
+        "professor": "Dr. Alice Smith",
+        "subject": "Computer Science 101",
+        "stars": 5,
+        "review": "Dr. Smith is an exceptional professor. Her lectures are engaging and she provides great support outside of class."
+    },
+    {
+        "professor": "Dr. Bob Johnson",
+        "subject": "Mathematics for Engineers",
+        "stars": 4,
+        "review": "Dr. Johnson is very knowledgeable, though his explanations can be a bit dense at times."
+    },
+    {
+        "professor": "Dr. Carol Williams",
+        "subject": "Introduction to Psychology",
+        "stars": 3,
+        "review": "The course was interesting, but Dr. Williams's teaching style could be more interactive."
+    },
+    {
+        "professor": "Dr. David Brown",
+        "subject": "Advanced Physics",
+        "stars": 2,
+        "review": "Dr. Brown's lectures are hard to follow, and he often seems disorganized."
+    },
+    {
+        "professor": "Dr. Emily Davis",
+        "subject": "Ethics in Technology",
+        "stars": 5,
+        "review": "Dr. Davis is fantastic. Her class discussions are thought-provoking and she is always open to questions."
+    },
+    {
+        "professor": "Dr. Frank Wilson",
+        "subject": "Biochemistry",
+        "stars": 4,
+        "review": "Dr. Wilson has a clear passion for the subject and provides detailed explanations."
+    },
+    {
+        "professor": "Dr. Grace Miller",
+        "subject": "History of Art",
+        "stars": 5,
+        "review": "Dr. Miller makes art history come alive. Her lectures are full of passion and insight."
+    },
+    {
+        "professor": "Dr. Henry Moore",
+        "subject": "Organic Chemistry",
+        "stars": 3,
+        "review": "Dr. Moore is knowledgeable, but the course material is difficult to grasp and could use more examples."
+    },
+    {
+        "professor": "Dr. Isabelle Taylor",
+        "subject": "Principles of Economics",
+        "stars": 4,
+        "review": "Dr. Taylor explains complex economic theories in a simple and understandable way."
+    },
+    {
+        "professor": "Dr. James Anderson",
+        "subject": "Data Structures",
+        "stars": 5,
+        "review": "Dr. Anderson is an excellent instructor. His practical examples make learning data structures easy."
+    },
+    {
+        "professor": "Dr. Karen Thomas",
+        "subject": "World Literature",
+        "stars": 4,
+        "review": "Dr. Thomas brings a lot of enthusiasm to her literature classes, making them enjoyable."
+    },
+    {
+        "professor": "Dr. Liam Jackson",
+        "subject": "Digital Signal Processing",
+        "stars": 3,
+        "review": "Dr. Jackson's lectures are okay, but the course could benefit from more hands-on projects."
+    },
+    {
+        "professor": "Dr. Monica White",
+        "subject": "Intro to Sociology",
+        "stars": 5,
+        "review": "Dr. White is incredibly engaging and her class discussions are very enlightening."
+    },
+    {
+        "professor": "Dr. Nathan Harris",
+        "subject": "Operating Systems",
+        "stars": 4,
+        "review": "Dr. Harris is a solid instructor, though sometimes the pace of the class is a bit fast."
+    },
+    {
+        "professor": "Dr. Olivia Clark",
+        "subject": "Human Anatomy",
+        "stars": 5,
+        "review": "Dr. Clark is fantastic. Her detailed explanations and hands-on approach make learning anatomy easy."
+    },
+    {
+        "professor": "Dr. Patrick Lewis",
+        "subject": "Financial Accounting",
+        "stars": 3,
+        "review": "Dr. Lewis is competent, but his teaching style is a bit dry and could use more real-world examples."
+    },
+    {
+        "professor": "Dr. Quinn Robinson",
+        "subject": "Philosophy of Science",
+        "stars": 4,
+        "review": "Dr. Robinson has a deep understanding of philosophy and makes the subject very interesting."
+    },
+    {
+        "professor": "Dr. Rachel Martinez",
+        "subject": "Statistics",
+        "stars": 5,
+        "review": "Dr. Martinez is excellent. Her explanations are clear and she provides lots of practice problems."
+    },
+    {
+        "professor": "Dr. Samuel Adams",
+        "subject": "Environmental Science",
+        "stars": 4,
+        "review": "Dr. Adams is passionate about the environment and his lectures are very informative."
+    },
+    {
+        "professor": "Dr. Tina Roberts",
+        "subject": "Computer Networks",
+        "stars": 3,
+        "review": "Dr. Roberts is knowledgeable, but the course content is quite challenging and could use better organization."
+    }
+    ]
+}

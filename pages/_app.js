@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { CssBaseline } from '@mui/material';
-import { Switch, Box } from '@mui/material';
+import { CssBaseline, Switch, Box } from '@mui/material';
 
 function MyApp({ Component, pageProps }) {
   const [darkMode, setDarkMode] = useState(true);
@@ -33,7 +32,7 @@ function MyApp({ Component, pageProps }) {
       <Box display="flex" justifyContent="flex-end" p={2}>
         <Switch checked={darkMode} onChange={handleToggle} />
       </Box>
-      <Component {...pageProps} />
+      <Component {...pageProps} darkMode={darkMode} setDarkMode={setDarkMode} />
     </ThemeProvider>
   );
 }

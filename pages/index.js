@@ -1,12 +1,13 @@
 'use client'
-import { Box, Button, Stack, TextField, Typography, Switch, useMediaQuery, CircularProgress, IconButton } from '@mui/material'
-import { useState, useMemo, useEffect, useRef } from 'react'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { CssBaseline } from '@mui/material'
+
+import { Box, Button, Stack, TextField, Typography, Switch, useMediaQuery, CircularProgress, IconButton } from '@mui/material';
+import { useState, useMemo, useEffect, useRef } from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { auth } from '../firebase'; // Adjust the import based on your setup
+import { auth } from '../firebase';
 import { useRouter } from 'next/router';
-import LogoutIcon from '@mui/icons-material/Logout'; // Import the Logout icon
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -14,13 +15,13 @@ export default function Home() {
       role: 'assistant',
       content: `Hi! I'm the Rate My Professor support assistant. How can I help you today?`,
     },
-  ])
-  const [message, setMessage] = useState('')
-  const [darkMode, setDarkMode] = useState(false)
-  const [isTyping, setIsTyping] = useState(false)
+  ]);
+  const [message, setMessage] = useState('');
+  const [darkMode, setDarkMode] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
   const [firstName, setFirstName] = useState('');
-  const isMobile = useMediaQuery('(max-width:600px)')
-  const chatEndRef = useRef(null)
+  const isMobile = useMediaQuery('(max-width:600px)');
+  const chatEndRef = useRef(null);
   const router = useRouter();
 
   const theme = useMemo(
@@ -37,7 +38,7 @@ export default function Home() {
         },
       }),
     [darkMode]
-  )
+  );
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -48,21 +49,21 @@ export default function Home() {
         router.push('/login');
       }
     });
-  
+
     return () => unsubscribe();
   }, [router]);
 
   const sendMessage = async () => {
-    if (!message.trim()) return
+    if (!message.trim()) return;
 
-    const newMessage = { role: 'user', content: message }
-    setMessage('')
+    const newMessage = { role: 'user', content: message };
+    setMessage('');
     setMessages((prevMessages) => [
       ...prevMessages,
       newMessage,
       { role: 'assistant', content: '' },
-    ])
-    setIsTyping(true)
+    ]);
+    setIsTyping(true);
 
     try {
       const response = await fetch('/api/chat', {
@@ -71,34 +72,34 @@ export default function Home() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify([...messages, newMessage]),
-      })
+      });
 
       if (!response.ok) {
-        throw new Error('Failed to send message')
+        throw new Error('Failed to send message');
       }
 
-      const reader = response.body.getReader()
-      const decoder = new TextDecoder()
-      let result = ''
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let result = '';
 
       reader.read().then(function processText({ done, value }) {
         if (done) {
-          setIsTyping(false)
-          return result
+          setIsTyping(false);
+          return result;
         }
 
-        const text = decoder.decode(value || new Uint8Array(), { stream: true })
+        const text = decoder.decode(value || new Uint8Array(), { stream: true });
         setMessages((prevMessages) => {
-          const lastMessage = prevMessages[prevMessages.length - 1]
-          const otherMessages = prevMessages.slice(0, prevMessages.length - 1)
+          const lastMessage = prevMessages[prevMessages.length - 1];
+          const otherMessages = prevMessages.slice(0, prevMessages.length - 1);
           return [
             ...otherMessages,
             { ...lastMessage, content: lastMessage.content + text },
-          ]
-        })
+          ];
+        });
 
-        return reader.read().then(processText)
-      })
+        return reader.read().then(processText);
+      });
     } catch (error) {
       setMessages((prevMessages) => [
         ...prevMessages,
@@ -106,18 +107,18 @@ export default function Home() {
           role: 'assistant',
           content: 'There was an error processing your request. Please try again.',
         },
-      ])
-      setIsTyping(false)
+      ]);
+      setIsTyping(false);
     }
-  }
+  };
 
   const scrollToBottom = () => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   useEffect(() => {
-    scrollToBottom()
-  }, [messages])
+    scrollToBottom();
+  }, [messages]);
 
   const handleLogout = async () => {
     try {
@@ -163,10 +164,10 @@ export default function Home() {
                 onChange={() => setDarkMode(!darkMode)}
                 color="default"
               />
-              <IconButton 
-                onClick={handleLogout} 
-                color="primary" 
-                size="small" 
+              <IconButton
+                onClick={handleLogout}
+                color="primary"
+                size="small"
                 sx={{
                   width: 40, // Small circle button size
                   height: 40,
@@ -232,7 +233,7 @@ export default function Home() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') sendMessage()
+                if (e.key === 'Enter') sendMessage();
               }}
             />
             <Button
@@ -243,6 +244,10 @@ export default function Home() {
                 borderRadius: '50%',
                 minWidth: '50px',
                 minHeight: '50px',
+                bgcolor: '#00BFFF', // Matching color
+                '&:hover': {
+                  bgcolor: '#00FFFF',
+                },
               }}
             >
               Send
@@ -251,5 +256,5 @@ export default function Home() {
         </Stack>
       </Box>
     </ThemeProvider>
-  )
+  );
 }

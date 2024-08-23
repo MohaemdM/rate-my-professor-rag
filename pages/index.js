@@ -1,8 +1,12 @@
 'use client'
-import { Box, Button, Stack, TextField, Typography, Switch, useMediaQuery, CircularProgress } from '@mui/material'
+import { Box, Button, Stack, TextField, Typography, Switch, useMediaQuery, CircularProgress, IconButton } from '@mui/material'
 import { useState, useMemo, useEffect, useRef } from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { CssBaseline } from '@mui/material'
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth } from '../firebase'; // Adjust the import based on your setup
+import { useRouter } from 'next/router';
+import LogoutIcon from '@mui/icons-material/Logout'; // Import the Logout icon
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -14,8 +18,10 @@ export default function Home() {
   const [message, setMessage] = useState('')
   const [darkMode, setDarkMode] = useState(false)
   const [isTyping, setIsTyping] = useState(false)
+  const [firstName, setFirstName] = useState('');
   const isMobile = useMediaQuery('(max-width:600px)')
   const chatEndRef = useRef(null)
+  const router = useRouter();
 
   const theme = useMemo(
     () =>
@@ -33,6 +39,19 @@ export default function Home() {
     [darkMode]
   )
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const displayName = user.displayName?.split(' ')[0];
+        setFirstName(displayName || '');
+      } else {
+        router.push('/login');
+      }
+    });
+  
+    return () => unsubscribe();
+  }, [router]);
+
   const sendMessage = async () => {
     if (!message.trim()) return
 
@@ -43,7 +62,7 @@ export default function Home() {
       newMessage,
       { role: 'assistant', content: '' },
     ])
-    setIsTyping(true) // Start typing indicator
+    setIsTyping(true)
 
     try {
       const response = await fetch('/api/chat', {
@@ -64,7 +83,7 @@ export default function Home() {
 
       reader.read().then(function processText({ done, value }) {
         if (done) {
-          setIsTyping(false) // Stop typing indicator
+          setIsTyping(false)
           return result
         }
 
@@ -88,7 +107,7 @@ export default function Home() {
           content: 'There was an error processing your request. Please try again.',
         },
       ])
-      setIsTyping(false) // Stop typing indicator in case of error
+      setIsTyping(false)
     }
   }
 
@@ -99,6 +118,15 @@ export default function Home() {
   useEffect(() => {
     scrollToBottom()
   }, [messages])
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      router.push('/login');
+    } catch (error) {
+      console.error('Sign Out Error', error);
+    }
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -129,11 +157,25 @@ export default function Home() {
             <Typography variant="h5" color="text.primary">
               Rate My Professor Assistant
             </Typography>
-            <Switch
-              checked={darkMode}
-              onChange={() => setDarkMode(!darkMode)}
-              color="default"
-            />
+            <Stack direction="row" spacing={2} alignItems="center">
+              <Switch
+                checked={darkMode}
+                onChange={() => setDarkMode(!darkMode)}
+                color="default"
+              />
+              <IconButton 
+                onClick={handleLogout} 
+                color="primary" 
+                size="small" 
+                sx={{
+                  width: 40, // Small circle button size
+                  height: 40,
+                  borderRadius: '50%',
+                }}
+              >
+                <LogoutIcon />
+              </IconButton>
+            </Stack>
           </Stack>
           <Stack
             direction="column"
@@ -151,23 +193,23 @@ export default function Home() {
                 }
               >
                 <Box
-  bgcolor={
-    message.role === 'assistant'
-      ? 'primary.light'
-      : 'secondary.light'
-  }
-  color="text.primary"
-  borderRadius={4} // Reduced border radius for less round corners
-  p={2}
-  maxWidth="75%"
-  boxShadow={2}
-  sx={{
-    wordWrap: 'break-word', // Ensures long words wrap to the next line
-    lineHeight: 1.5, // Adjusts line height to prevent text from overlapping
-    whiteSpace: 'pre-wrap', // Ensures that text respects line breaks and wraps as needed
-    boxSizing: 'border-box' // Includes padding and borders in the element's width/height
-  }}
->
+                  bgcolor={
+                    message.role === 'assistant'
+                      ? 'primary.light'
+                      : 'secondary.light'
+                  }
+                  color="text.primary"
+                  borderRadius={4}
+                  p={2}
+                  maxWidth="75%"
+                  boxShadow={2}
+                  sx={{
+                    wordWrap: 'break-word',
+                    lineHeight: 1.5,
+                    whiteSpace: 'pre-wrap',
+                    boxSizing: 'border-box'
+                  }}
+                >
                   {message.content}
                 </Box>
               </Box>

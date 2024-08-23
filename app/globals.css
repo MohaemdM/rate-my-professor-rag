@@ -1,6 +1,12 @@
-
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+@media (max-width: 600px) {
+  /* Example for mobile screens */
+  .responsive-component {
+    width: 100%;
+    padding: 1rem;
+  }
 }

@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps }) {
   const [darkMode, setDarkMode] = useState(true);
 
   useEffect(() => {
-    const userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const userPrefersDark = window.matchMedia('(prefers-color-scheme: light)').matches;
     setDarkMode(userPrefersDark);
   }, []);
 

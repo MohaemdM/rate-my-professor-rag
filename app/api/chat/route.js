@@ -86,7 +86,7 @@ export async function POST(req) {
           ...lastDataWithoutLastMessage,
           { role: 'user', content: lastMessageContent },
         ],
-        model: 'gpt-4',
+        model: 'gpt-4o-mini',
         stream: true,
       });
   

@@ -117,8 +117,13 @@ export default function Home() {
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
-      bgcolor="background.default"
-      p={isMobile ? 1 : 2}
+      sx={{
+        background: 'linear-gradient(135deg, #0066FF, #0099FF, #00CCFF)',
+        backgroundSize: '400% 400%',
+        animation: 'gradientAnimation 3.5s ease infinite',
+        textAlign: 'center',
+        p: isMobile ? 1 : 2,
+      }}
     >
       <Stack
         direction="column"
@@ -225,6 +230,13 @@ export default function Home() {
           </Button>
         </Stack>
       </Stack>
+      <style jsx global>{`
+        @keyframes gradientAnimation {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+      `}</style>
     </Box>
   );
 }

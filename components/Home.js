@@ -1,10 +1,11 @@
 import React from 'react';
-import { Box, Button, Typography, Stack } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import Link from 'next/link'; // Import Link from next/link
+import Link from 'next/link';
 
 const Home = () => {
-  const theme = useTheme(); // Get the current theme
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
 
   return (
     <Box
@@ -14,50 +15,86 @@ const Home = () => {
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
-      bgcolor={theme.palette.background.default} // Use theme background color
-      p={2}
+      sx={{
+        background: 'linear-gradient(135deg, #0066FF, #0099FF, #00CCFF)',
+        backgroundSize: '400% 400%',
+        animation: 'gradientAnimation 3.5s ease infinite',
+        textAlign: 'center',
+        p: 2,
+      }}
     >
-      <Stack
-        direction="column"
-        alignItems="center"
-        spacing={3}
-        bgcolor={theme.palette.background.paper} // Use theme paper color
-        borderRadius={2}
-        boxShadow={2}
-        p={3}
-        maxWidth="600px"
-        width="100%"
-        textAlign="center"
+      <Typography
+        variant="h3"
+        color={isDarkMode ? '#000000' : '#FFFFFF'}
+        sx={{
+          fontSize: { xs: '2rem', md: '3rem' },
+          fontWeight: 'bold',
+          mb: 1,
+        }}
       >
-        <Typography variant="h2" color={theme.palette.primary.main}>
-          Welcome to Rate My Professor AI Support
-        </Typography>
-        <Typography variant="h6" color={theme.palette.text.primary}>
-          Your personalized AI assistant for evaluating professors and enhancing your academic experience.
-        </Typography>
-        <Typography variant="body1" color={theme.palette.text.secondary} paragraph>
-          Discover insights and reviews to make informed decisions about your professors. Get started now to explore the features and tools we offer.
-        </Typography>
-        <Link href="/signup" passHref>
-  <Button
-    variant="contained"
-    color="primary"
-    sx={{
-      mt: 2,
-      bgcolor: '#00BFFF', // Blue button
-      color: '#000000',
-      borderRadius: 4,
-      '&:hover': {
-        bgcolor: '#00FFFF', // Lighter blue on hover
-      },
-      transition: 'background-color 0.3s ease',
-    }}
-  >
-    Get Started
-  </Button>
-</Link>
-      </Stack>
-      
+        Welcome To
+      </Typography>
+      <Typography
+        variant="h2"
+        color={isDarkMode ? '#000000' : '#FFFFFF'}
+        sx={{
+          fontSize: { xs: '2.5rem', md: '4rem' },
+          fontWeight: 'bold',
+          mb: 3,
+        }}
+      >
+        Rate My Professor Assistant
+      </Typography>
+      <Typography
+        variant="h5"
+        color={isDarkMode ? '#000000' : '#FFFFFF'}
+        sx={{
+          fontSize: { xs: '1.25rem', md: '1.5rem' },
+          maxWidth: '90%', // Adjusted to fit better on smaller screens
+          mx: 'auto',
+          mb: 3,
+        }}
+      >
+        Your AI assistant for evaluating professors and enhancing your academic experience.
+      </Typography>
+      <Typography
+        variant="body1"
+        color={isDarkMode ? '#333333' : '#CCCCCC'}
+        sx={{
+          fontSize: { xs: '1rem', md: '1.25rem' },
+          maxWidth: '90%', // Adjusted to fit better on smaller screens
+          mx: 'auto',
+          mb: 4,
+        }}
+      >
+        Discover insights and reviews to make informed decisions about your professors. Get started now to explore the features and tools we offer.
+      </Typography>
+      <Link href="/signup" passHref>
+        <Button
+          variant="contained"
+          sx={{
+            mt: 2,
+            bgcolor: isDarkMode ? '#000000' : '#FFFFFF',
+            color: isDarkMode ? '#FFFFFF' : '#000000',
+            borderRadius: '8px',
+            padding: '12px 24px',
+            boxShadow: 'none',
+            '&:hover': {
+              bgcolor: isDarkMode ? '#333333' : '#F0F0F0',
+            },
+            transition: 'background-color 0.3s ease',
+          }}
+        >
+          Get Started
+        </Button>
+      </Link>
+      <style jsx global>{`
+        @keyframes gradientAnimation {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+      `}</style>
     </Box>
   );
 };

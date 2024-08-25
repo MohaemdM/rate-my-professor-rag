@@ -103,7 +103,7 @@ export default function Home() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      router.push('/Home');
+      router.push('/home');
     } catch (error) {
       console.error('Sign Out Error', error);
     }

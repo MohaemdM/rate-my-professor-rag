@@ -26,7 +26,7 @@ export default function Home() {
         const displayName = user.displayName?.split(' ')[0];
         setFirstName(displayName || '');
       } else {
-        router.push('/login');
+        router.push('/home');
       }
     });
 
@@ -103,7 +103,7 @@ export default function Home() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      router.push('/login');
+      router.push('/Home');
     } catch (error) {
       console.error('Sign Out Error', error);
     }

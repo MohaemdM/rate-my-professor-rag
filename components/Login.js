@@ -16,10 +16,10 @@ const Login = () => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-
+  
       if (user.emailVerified) {
         localStorage.setItem('token', user.accessToken);
-        router.push('/');
+        router.push('/'); // Redirect to root path, which _app.js will handle
       } else {
         setError('Please verify your email before logging in.');
       }

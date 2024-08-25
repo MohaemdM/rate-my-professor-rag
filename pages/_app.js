@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { CssBaseline } from '@mui/material';
-import { Switch, Box } from '@mui/material';
+import { CssBaseline, Box, Switch } from '@mui/material';
 
 function MyApp({ Component, pageProps }) {
   const [darkMode, setDarkMode] = useState(true);
 
   useEffect(() => {
+    // Set dark mode based on user preference or system preference
     const userPrefersDark = window.matchMedia('(prefers-color-scheme: light)').matches;
     setDarkMode(userPrefersDark);
   }, []);
